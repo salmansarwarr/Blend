@@ -161,45 +161,52 @@ const Payment = () => {
         );
     }
 
-    if (!state || !api || loading) {
+    if (!state || !api) {
         <Loader />;
     }
 
     return (
-        <div className="bg-white w-full h-screen text-black">
-            <ToastContainer />
-            <Navbar />
-            <div className="flex w-full py-24 gap-8 flex-col items-center">
-                <p className="text-3xl text-center max-w-[935px] leading-[1.5] font-light">
-                    Creation of your digital identity PASSPORT requires a
-                    one-time cost of 1 SBY due to the heavy computing resources
-                    required.
-                </p>
-                {!state.data ? (
-                    <button
-                        onClick={() => handleConnect()}
-                        className="flex items-center gap-10 border px-8 py-3 rounded-lg hover:bg-[#E2E2E2] transition-all  cursor-pointer"
-                    >
-                        <p>Pay 1 SBY now</p>
-                        <FaArrowRightLong />
-                    </button>
-                ) : (
-                    <button
-                        onClick={handleClick}
-                        className="flex items-center gap-10 border px-8 py-3 rounded-lg hover:bg-[#E2E2E2] transition-all  cursor-pointer"
-                    >
-                        <p>Click again and check wallet</p>
-                        <FaArrowRightLong />
-                    </button>
-                )}
-                <p className="text-[#888888] max-w-[532px] text-center text-sm">
-                    This DAPP is just a demo to showcase the Blend toolkit. The
-                    payment of 10 ASTR is a fix amount calculated at the time of
-                    development and is use to covered the on-cloud computation
-                    resources which is utilizing currently to power this demo
-                </p>
-            </div>
-        </div>
+        <>
+            {loading ? (
+                <Loader />
+            ) : (
+                <div className="bg-white w-full h-screen text-black">
+                    <ToastContainer />
+                    <Navbar />
+                    <div className="flex w-full py-24 gap-8 flex-col items-center">
+                        <p className="text-3xl text-center max-w-[935px] leading-[1.5] font-light">
+                            Creation of your digital identity PASSPORT requires
+                            a one-time cost of 1 SBY due to the heavy computing
+                            resources required.
+                        </p>
+                        {!state.data ? (
+                            <button
+                                onClick={() => handleConnect()}
+                                className="flex items-center gap-10 border px-8 py-3 rounded-lg hover:bg-[#E2E2E2] transition-all  cursor-pointer"
+                            >
+                                <p>Pay 1 SBY now</p>
+                                <FaArrowRightLong />
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleClick}
+                                className="flex items-center gap-10 border px-8 py-3 rounded-lg hover:bg-[#E2E2E2] transition-all  cursor-pointer"
+                            >
+                                <p>Click again and check wallet</p>
+                                <FaArrowRightLong />
+                            </button>
+                        )}
+                        <p className="text-[#888888] max-w-[532px] text-center text-sm">
+                            This DAPP is just a demo to showcase the Blend
+                            toolkit. The payment of 10 ASTR is a fix amount
+                            calculated at the time of development and is use to
+                            covered the on-cloud computation resources which is
+                            utilizing currently to power this demo
+                        </p>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
