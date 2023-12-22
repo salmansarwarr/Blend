@@ -132,7 +132,7 @@ const Payment = () => {
                     { signer: injector.signer },
                     (status) => {
                         console.log("status", status);
-                        if (status.isInBlock) {
+                        if (status.status.isInBlock) {
                             console.log(
                                 `Completed at block hash #${status.asInBlock.toString()}`
                             );
