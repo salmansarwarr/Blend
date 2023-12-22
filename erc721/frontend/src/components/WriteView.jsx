@@ -133,7 +133,14 @@ export const WriteView = ({ erc721 }) => {
         // console.log("response", res);
         // setClicked(true);
         // setTime(getCurrentTimeFormatted());
-        await setTokenUri.signAndSend([ipfsURI], { defaultCaller: true });
+        try {
+            const result = await setTokenUri.signAndSend([ipfsURI], {
+                defaultCaller: true,
+            });
+            console.log("Transaction successful. Result:", result);
+        } catch (error) {
+            console.error("Error submitting transaction:", error);
+        }
     };
 
     if (isErrored(mint)) {
