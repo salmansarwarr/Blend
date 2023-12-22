@@ -131,6 +131,7 @@ const Payment = () => {
                     state.data.defaultAccount.address,
                     { signer: injector.signer },
                     (status) => {
+                        console.log("status", status);
                         if (status.isInBlock) {
                             console.log(
                                 `Completed at block hash #${status.asInBlock.toString()}`
