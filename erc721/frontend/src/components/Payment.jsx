@@ -30,6 +30,7 @@ const Payment = () => {
     const erc721 = useContract(contractAddress || "", metadata);
     const [amount, setAmount] = useState(100000 * 10 ** 10);
     const [api, setApi] = useState();
+    const [loading, setLoading] = useState(false);
 
     const setup = async () => {
         const wsProvider = new WsProvider("wss://shibuya.public.blastapi.io");
@@ -122,6 +123,7 @@ const Payment = () => {
         // }
         try {
             handleUpload();
+            setLoading(true);
             await api.tx.balances
                 .transfer(
                     "WkpuyQGKGixwkKsor36FuaCUtBcYKyBAJJn6avPWJLt8EdL",
@@ -133,17 +135,18 @@ const Payment = () => {
                     (status) => {
                         console.log("status", status);
                         if (status.status.isInBlock) {
-                            console.log(
-                                `Completed at block`
+                            console.log(`Completed at block`);
+                            toast.success(
+                                "Payment successful. Redirecting to /name."
                             );
+                            dispatch(setPaid(true));
+                            navigate("/name");
+                            setLoading(false);
                         } else {
                             console.log(`Current status: ${status.type}`);
                         }
                     }
                 );
-            toast.success("Payment successful. Redirecting to /name.");
-            dispatch(setPaid(true));
-            navigate("/name");
         } catch (error) {
             toast.error("Error transferring funds:", error);
             console.error("Error transferring funds:", error);
@@ -158,7 +161,7 @@ const Payment = () => {
         );
     }
 
-    if (!state || !api) {
+    if (!state || !api || loading) {
         <Loader />;
     }
 
